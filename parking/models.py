@@ -3,7 +3,6 @@ from django import forms
 
 class ParkingSlot(models.Model):
     slot_no = models.IntegerField(primary_key=True)
-    is_occupied = models.BooleanField()
 
     def __str__(self):
        return str(self.slot_no)
@@ -15,7 +14,6 @@ class CarInfo(models.Model):
     in_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     out_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     date = models.DateField(auto_now=False, auto_now_add=False)
-    # slot = models.IntegerField()
 
     def __str__(self):
         return str(self.car_number)
