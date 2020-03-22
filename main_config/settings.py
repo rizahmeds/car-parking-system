@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'main_config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'car_parking_system', # create database with this name in local/production mysql 
+        'USER': 'root', # change as per your localhost/production mysql username
+        'PASSWORD': 'root1234', # change as per your localhost/production mysql password
+        'HOST': 'localhost', # change it in the production environment
+        'PORT': '3306',
     }
 }
 
@@ -106,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata' # your country's tiemzone
 
 USE_I18N = True
 
@@ -119,3 +123,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
