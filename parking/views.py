@@ -20,7 +20,7 @@ def parking_list(request):
 def add_car_info(request):
     empty_slot = False
     form = CarInfoForm(request.POST)
-    for i in range(1,6):
+    for i in range(1,21):
         if not hasattr(ParkingSlot.objects.get(slot_no=i), 'carinfo'):
             empty_slot = ParkingSlot.objects.get(slot_no=i)
             break
