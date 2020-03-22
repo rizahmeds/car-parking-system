@@ -1,0 +1,81 @@
+{% extends 'parking/base.html' %}
+
+{% block content %}
+    <style>
+        .dot {
+            height: 50px; width: 50px; background-color: #bbb; border-radius: 50%; display: inline-block;
+        }
+        .alloted { background-color: #c82333; color: whitesmoke;}
+        .empty { background-color: #218838; color: whitesmoke;}
+    </style>
+    
+    <div class="row text-center">
+    {% for parking_slot in parking_slots %}
+        <div class="col-lg-3" style="padding: 20px;">
+            <span class="dot">{{parking_slot.slot_no}}</span>
+            {% if parking_slot.carinfo %}
+                <h2 class="alloted">{{parking_slot.carinfo.car_number}}</h2>
+                <a class="btn btn-danger" href="{% url 'exit_car' parking_slot.carinfo.car_number %}" role="button">
+                    Exit Car »
+                </a>
+            {% else %}
+                <h2 class="empty">Empty Space</h2>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                    Allot Space »
+                </button>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+
+    <!-- Allot Car Space Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <form method="POST">
+        {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Allot Parking Space</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="car_number" class="col-sm-4 col-form-label">Car Number</label>
+                        <div class="col-sm-8">
+                            {{ form.car_number }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="in_time" class="col-sm-4 col-form-label">In Time</label>
+                        <div class="col-sm-8">
+                            {{ form.in_time }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="out_time" class="col-sm-4 col-form-label">Out Time</label>
+                        <div class="col-sm-8">
+                            {{ form.out_time }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="date" class="col-sm-4 col-form-label">Date</label>
+                        <div class="col-sm-8">
+                            {{ form.date }}
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+{% endblock %}
